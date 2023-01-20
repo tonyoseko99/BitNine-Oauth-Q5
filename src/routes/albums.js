@@ -4,8 +4,8 @@ const albumController = require("../controllers/albums");
 
 router.put("/", albumController.create);
 router.get("/", albumController.findAll);
-router.get("/:userId", userController.findOne);
-router.put("/:userId", userController.update);
-router.delete("/:userId", userController.delete);
+router.get('/:albumId', albumController.findOne);
+router.put('/:albumId', albumController.update);
+router.delete('/:albumId', albumController.delete);
 
 module.exports = router;
