@@ -62,3 +62,34 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
+// update album by id
+exports.update = (req, res) => {
+  Album.findByIdAndUpdate(
+    req.params.albumId,
+    {
+      albumId: req.body.albumId,
+      userId: req.body.userId,
+      albumTitle: req.body.albumTitle,
+    },
+    { new: true }
+  )
+    .then((album) => {
+      if (!album) {
+        return res.status(404).send({
+          message: "Album not found with id " + req.params.albumId,
+        });
+      }
+      res.status(200).send(album);
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "Album not found with id " + req.params.albumId,
+        });
+      }
+      return res.status(500).send({
+        message: "Error updating album with id " + req.params.albumId,
+      });
+    });
+};
