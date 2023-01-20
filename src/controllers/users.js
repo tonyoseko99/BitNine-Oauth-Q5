@@ -61,3 +61,34 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
+// update user by id
+exports.update = (req, res) => {
+  User.findByIdAndUpdate(
+    req.params.userId,
+    {
+      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
+    },
+    { new: true }
+  )
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          message: `user not found with id: ${req.params.userId}`,
+        });
+      }
+      res.status(200).send(user);
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId") {
+        return res.status(404).send({
+          message: `user not found with id: ${req.params.userId}`,
+        });
+      }
+      res.send(500).send({
+        message: `Error updating user: ${req.params.userId}`,
+      });
+    });
+};
