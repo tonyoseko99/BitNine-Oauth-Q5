@@ -24,3 +24,17 @@ exports.create = (req, res) => {
       });
     });
 };
+
+// get all photos
+exports.findAll = (req, res) => {
+  Photo.find()
+    .then((photos) => {
+      res.status(200).send(photos);
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message || "Some error occurred while retrieving photos.",
+      });
+    });
+};
