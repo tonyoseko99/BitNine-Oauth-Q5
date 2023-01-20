@@ -92,3 +92,28 @@ exports.update = (req, res) => {
       });
     });
 };
+
+// delete a user
+exports.delete = (req, res) => {
+  User.findByIdAndDelete(req.params.userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          message: `User ${req.params.userId} not found.`,
+        });
+      }
+      res.status(200).send({
+        message: `User ${req.params.userId} deleted successfully!`,
+      });
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId" || error.name === "NotFound") {
+        return res.status(404).send({
+          message: `User ${req.params.userId} not found`,
+        });
+      }
+      return res.status(500).send({
+        message: `Could not delete user: ${req.params.userId}`,
+      });
+    });
+};
