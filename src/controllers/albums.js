@@ -93,3 +93,28 @@ exports.update = (req, res) => {
       });
     });
 };
+
+// delete album by id
+exports.delete = (req, res) => {
+  Album.findByIdAndRemove(req.params.albumId)
+    .then((album) => {
+      if (!album) {
+        return res.status(404).send({
+          message: "Album not found with id " + req.params.albumId,
+        });
+      }
+      res.status(200).send({
+        message: "Album deleted successfully!",
+      });
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId" || error.name === "NotFound") {
+        return res.status(404).send({
+          message: "Album not found with id " + req.params.albumId,
+        });
+      }
+      return res.status(500).send({
+        message: "Could not delete album with id " + req.params.albumId,
+      });
+    });
+};
