@@ -38,3 +38,26 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+// get photo by id
+exports.findOne = (req, res) => {
+  Photo.findById(req.params.photoId)
+    .then((photo) => {
+      if (!photo) {
+        return res.status(404).send({
+          message: "Photo not found with id " + req.params.photoId,
+        });
+      }
+      res.status(200).send(photo);
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "Photo not found with id " + req.params.photoId,
+        });
+      }
+      return res.status(500).send({
+        message: "Error retrieving photo with id " + req.params.photoId,
+      });
+    });
+};
