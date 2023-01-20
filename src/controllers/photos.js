@@ -61,3 +61,34 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
+// update photo by id
+exports.update = (req, res) => {
+  Photo.findByIdAndUpdate(
+    req.params.photoId,
+    {
+      albumId: req.body.albumId,
+      photoTitle: req.body.photoTitle,
+      imageUrl: req.body.imageUrl,
+    },
+    { new: true }
+  )
+    .then((photo) => {
+      if (!photo) {
+        return res.status(404).send({
+          message: "Photo not found with id " + req.params.photoId,
+        });
+      }
+      res.status(200).send(photo);
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "Photo not found with id " + req.params.photoId,
+        });
+      }
+      return res.status(500).send({
+        message: "Error updating photo with id " + req.params.photoId,
+      });
+    });
+};
