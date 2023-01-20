@@ -1,5 +1,5 @@
 // Albums controller
-const Album = require("../controllers/album");
+const Album = require("../models/album");
 
 // create an album
 exports.create = (req, res) => {
