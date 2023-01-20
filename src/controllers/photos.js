@@ -92,3 +92,28 @@ exports.update = (req, res) => {
       });
     });
 };
+
+// delete photo by id
+exports.delete = (req, res) => {
+  Photo.findByIdAndRemove(req.params.photoId)
+    .then((photo) => {
+      if (!photo) {
+        return res.status(404).send({
+          message: "Photo not found with id " + req.params.photoId,
+        });
+      }
+      res.status(200).send({
+        message: "Photo deleted successfully!",
+      });
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId" || error.name === "NotFound") {
+        return res.status(404).send({
+          message: "Photo not found with id " + req.params.photoId,
+        });
+      }
+      return res.status(500).send({
+        message: "Could not delete photo with id " + req.params.photoId,
+      });
+    });
+};
