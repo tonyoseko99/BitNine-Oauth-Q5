@@ -25,3 +25,16 @@ exports.create = (req, res) => {
       });
     });
 };
+
+// get all users
+exports.findAll = (req, res) => {
+  User.find()
+    .then((users) => {
+      res.status(200).send(users);
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "Error obtaining users",
+      });
+    });
+};
