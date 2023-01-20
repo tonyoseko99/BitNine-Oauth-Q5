@@ -24,3 +24,16 @@ exports.create = (req, res) => {
       });
     });
 };
+
+// find all albums
+exports.findAll = (req, res) => {
+  Album.find()
+    .then((albums) => {
+      res.status(200).send(albums);
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "Error retrieving albumms",
+      });
+    });
+};
