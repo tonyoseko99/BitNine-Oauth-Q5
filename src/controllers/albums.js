@@ -37,3 +37,28 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+// find one album
+exports.findOne = (req, res) => {
+  Album.findById(req.params.albumId)
+    .then((album) => {
+      if (!album) {
+        return res.status(404).send({
+          message: "Album not found",
+        });
+      }
+      res.status(200).send(album);
+    })
+    .catch((error) => {
+      if (error.kind === "ObjectId") {
+        return res.status(404).send({
+          message:
+            error.message ||
+            "Album with id: " + req.params.albumId + "not found",
+        });
+      }
+      res.status(500).send({
+        message: `Album ${req.params.albumId} not found`,
+      });
+    });
+};
