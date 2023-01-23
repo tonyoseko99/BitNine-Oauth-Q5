@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const AlbumSchema = new mongoose.Schema({
-  albumId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   userId: {
     type: String,
     required: true,
@@ -16,4 +11,4 @@ const AlbumSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Album', AlbumSchema)
+module.exports = mongoose.model("Album", AlbumSchema);

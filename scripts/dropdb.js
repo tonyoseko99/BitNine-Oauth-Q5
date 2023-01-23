@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dbUrl = require("../src/config");
+const { dbUrl } = require("../src/config");
 
 const dropDb = async () => {
   try {

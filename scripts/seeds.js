@@ -15,7 +15,7 @@ const Photo = require("../src/models/photo");
 // User seed data
 const generateUser = async () => {
   const user = new User({
-    name: faker.name.firstName("male"),
+    name: faker.name.firstName() + " " + faker.name.lastName(),
     username: faker.internet.userName(),
     email: faker.internet.email(),
   });
@@ -23,32 +23,65 @@ const generateUser = async () => {
   console.log(`User created: ${user.username}`);
 };
 
-// 10 instances of users
-for (let i = 0; i < 10; i++) {
-  generateUser();
-}
+const createUsers = async (num) => {
+  for (let i = 0; i < num; i++) {
+    await generateUser();
+  }
+};
+createUsers(10);
 
 // Album seed data
 const generateAlbum = async () => {
+  // select a random user from the database and assign it to the album userId
+  const user = await User.findOne();
+  if (!user) {
+    console.log("No users found");
+    return;
+  }
   const album = new Album({
-    albumId: faker.random.uuid(),
-    // userId is a foreign key, so we need to find a random user from the database and select the _id
-    userId: await User.aggregate([{ $sample: { size: 1 } }]),
+    
+    userId: user._id,
     albumTitle: faker.lorem.words(),
   });
   await album.save();
-  console.log(`Album created: ${album.title}`);
+  console.log(`Album created: ${album.albumTitle}`);
 };
 
-// 20 instances of albums
-for (let i = 0; i < 20; i++) {
-  generateAlbum();
-}
+const createAlbums = async (num) => {
+  for (let i = 0; i < num; i++) {
+    await generateAlbum();
+  }
+};
+createAlbums(20);
+
+// Photo seed data
+const generatePhoto = async () => {
+  const album = await Album.findOne();
+  if (!album) {
+    console.log("No albums found");
+    return;
+  }
+  const photo = new Photo({
+    albumId: album._id,
+    photoTitle: faker.lorem.words(),
+    imageUrl: faker.image.imageUrl(),
+  });
+  await photo.save();
+  console.log(`Photo created: ${photo.photoTitle}`);
+};
+
+const createPhotos = async (num) => {
+  for (let i = 0; i < num; i++) {
+    await generatePhoto();
+  }
+};
+createPhotos(150);
 
 // Run seed data
 const run = async () => {
   await generateUser();
   await generateAlbum();
+  await generatePhoto();
   process.exit();
 };
 
