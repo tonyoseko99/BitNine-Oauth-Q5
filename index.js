@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const usersRouter = require("./src/routes/users");
 const albumsRouter = require("./src/routes/albums");
 const photosRouter = require("./src/routes/photos");
-const { dbUrl } = require("./src/config")
+const { dbUrl } = require("./src/config");
 
 app.use(bodyParser.json());
 app.use("/api/users", usersRouter);
