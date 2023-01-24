@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/users");
 const { validateUser } = require("../validations/users");
+const hidePasswords = require('../middleware/hidePasswords');
 
 // validate middleware
 const validate = (req, res, next) => {
