@@ -23,18 +23,9 @@ app.use("/api/albums", albumsRouter);
 app.use("/api/photos", photosRouter);
 
 // connect to mongodb
-const connectDB = async () => {
-  try {
-    mongoose.connect(dbUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connected to MongoDB...");
-  } catch (error) {
-    console.error("Could not connect to MongoDB...");
-  }
-};
-connectDB();
+mongoose.connect(process.env.PORT, () => {
+  console.log("Mongo connected");
+});
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
