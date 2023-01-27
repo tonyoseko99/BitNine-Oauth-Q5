@@ -12,14 +12,22 @@ const { dbUrl } = require("./src/config");
 
 // enable cors
 
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());
 
-// port
-const PORT = process.env.PORT || 4000;
+// use the routes
+app.use("/auth", authRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/albums", albumsRouter);
+app.use("/api/photos", photosRouter);
+app.use("/", (req, res) => {
+  res.send("Welcome to Galleria API");
+});
 
-// connect to mongodb database and set strictquery to true
+// port
+const PORT = process.env.PORT || 5000;
+
+// connect to mongodb database
 const dbConnection = async () => {
   try {
     mongoose.connect(dbUrl, {
@@ -37,14 +45,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   dbConnection();
 });
-
-// use the routes
-app.use("/auth", authRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/albums", albumsRouter);
-app.use("/api/photos", photosRouter);
-app.use("/", (req, res) => {
-  res.send("Welcome to Galleria API");
-});
-
-
