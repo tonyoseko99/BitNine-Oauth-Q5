@@ -22,12 +22,17 @@ app.use("/api/users", usersRouter);
 app.use("/api/albums", albumsRouter);
 app.use("/api/photos", photosRouter);
 
-// connect to mongodb
+// port
+const port = process.env.PORT || 4000;
+
+// connect to mongodb and start the server
 mongoose
   .connect("mongodb://localhost:27017/galleria-db", { useNewUrlParser: true })
-  .then(() => console.log("Connected to MongoDB..."))
-  .catch((err) => console.error("Could not connect to MongoDB...", err));
-
-// start the server
-const port = process.env.PORT || 4000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
