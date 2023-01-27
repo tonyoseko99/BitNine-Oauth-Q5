@@ -9,6 +9,4 @@ process.env.JWT_SECRET;
 process.env.PORT;
 
 // export the variables
-module.exports = {
-  dbUrl,
-};
+module.exports = { dbUrl };

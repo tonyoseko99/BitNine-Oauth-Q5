@@ -16,22 +16,13 @@ app.use(cors());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());
 
-// use the routes
-app.use("/auth", authRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/albums", albumsRouter);
-app.use("/api/photos", photosRouter);
-app.use("/", (req, res) => {
-  res.send("Welcome to Galleria API");
-});
-
 // port
 const PORT = process.env.PORT || 4000;
 
 // connect to mongodb database and set strictquery to true
 const dbConnection = async () => {
   try {
-    await mongoose.connect(dbUrl, {
+    mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -46,3 +37,14 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   dbConnection();
 });
+
+// use the routes
+app.use("/auth", authRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/albums", albumsRouter);
+app.use("/api/photos", photosRouter);
+app.use("/", (req, res) => {
+  res.send("Welcome to Galleria API");
+});
+
+
