@@ -7,6 +7,11 @@ A REST API for photos and albums, it generates albums and photos of users.
 
 ## Installation
 
+### Prerequisites
+
+- Node.js
+- MongoDB (ensure you have it installed and running)
+
 - Clone or fork the API from `https://github.com/tonyoseko99/galleria-node-api`
 - On your local machine run:
 
