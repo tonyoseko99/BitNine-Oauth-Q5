@@ -8,7 +8,7 @@ const usersRouter = require("./src/routes/users");
 const albumsRouter = require("./src/routes/albums");
 const photosRouter = require("./src/routes/photos");
 const authRouter = require("./src/routes/auth");
-const dbUrl = require("./src/config");
+const { dbUrl } = require("./src/config");
 
 // enable cors
 app.use(cors());
@@ -28,12 +28,12 @@ app.use("/", (req, res) => {
 // port
 const port = 4000;
 
-// connect to mongodb and start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-  mongoose.connect(
-    dbUrl,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    () => console.log("Connected to MongoDB")
-  );
-});
+// connect to mongodb
+mongoose
+  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server is running on port: ${port}`);
+    });
+  })
+  .catch((error) => console.log(error.message));
