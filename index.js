@@ -28,12 +28,12 @@ app.use("/", (req, res) => {
 // port
 const PORT = process.env.PORT || 5000;
 
-// connect to mongodb
-mongoose
-  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port: ${PORT}`);
-    });
-  })
-  .catch((error) => console.log(error.message));
+// connect to mongodb database and set strictquery to true
+mongoose.connect(dbUrl, {
+  useNewUrlParser: true,
+});
+
+// listen for requests
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
