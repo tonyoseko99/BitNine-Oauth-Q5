@@ -23,7 +23,7 @@ app.use("/api/albums", albumsRouter);
 app.use("/api/photos", photosRouter);
 
 // port
-const port = process.env.PORT || 4000;
+const port = 4000;
 
 // connect to mongodb and start the server
 mongoose
