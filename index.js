@@ -21,18 +21,19 @@ app.use("/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/albums", albumsRouter);
 app.use("/api/photos", photosRouter);
+app.use("/", (req, res) => {
+  res.send("Welcome to Galleria API");
+});
 
 // port
 const port = 4000;
 
 // connect to mongodb and start the server
-mongoose
-  .connect(dbUrl, { useNewUrlParser: true })
-  .then(() => {
-    app.listen(port, "0.0.0.0", () => {
-      console.log(`Server running on port ${port}`);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+  mongoose.connect(
+    dbUrl,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log("Connected to MongoDB")
+  );
+});
