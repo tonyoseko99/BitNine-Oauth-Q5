@@ -3,11 +3,12 @@
 const dbUrl = "mongodb://localhost:27017/galleria-db";
 
 // jwt secret
-const jwtSecret = process.env.JWT_SECRET;
+process.env.JWT_SECRET;
 
-// export the jwtSecret variable
+// port
+process.env.PORT;
 
+// export the variables
 module.exports = {
   dbUrl,
-  jwtSecret,
 };
