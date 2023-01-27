@@ -8,7 +8,7 @@ const usersRouter = require("./src/routes/users");
 const albumsRouter = require("./src/routes/albums");
 const photosRouter = require("./src/routes/photos");
 const authRouter = require("./src/routes/auth");
-const { dbUrl } = require("./src/config");
+const dbUrl = require("./src/config");
 
 // enable cors
 app.use(cors());

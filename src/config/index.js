@@ -7,4 +7,4 @@ const jwtSecret = process.env.JWT_SECRET;
 
 // export the jwtSecret variable
 
-module.exports = { dbUrl, jwtSecret };
+module.exports = { jwtSecret }, dbUrl;
