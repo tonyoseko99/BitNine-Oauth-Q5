@@ -26,14 +26,26 @@ app.use("/", (req, res) => {
 });
 
 // port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 // connect to mongodb database and set strictquery to true
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-});
+const dbConnection = async () => {
+  try {
+    await mongoose.connect(dbUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+      strictQuery: true,
+    });
+    console.log("Connected to database");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// listen for requests
+// listen on port
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  dbConnection();
 });
