@@ -27,9 +27,9 @@ const port = process.env.PORT || 4000;
 
 // connect to mongodb and start the server
 mongoose
-  .connect("mongodb://localhost:27017/galleria-db", { useNewUrlParser: true })
+  .connect(dbUrl, { useNewUrlParser: true })
   .then(() => {
-    app.listen(port, () => {
+    app.listen(port, "0.0.0.0", () => {
       console.log(`Server running on port ${port}`);
     });
   })

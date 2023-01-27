@@ -13,7 +13,7 @@ exports.signup = async (req, res) => {
     // create a json web token
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: "1h" });
 
-    //   send the token and the new user's information to the client
+    // send the token and the new user's information to the client
     res.status(201).json({ token, user });
   } catch (error) {
     res.status(400).json({
