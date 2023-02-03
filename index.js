@@ -10,20 +10,6 @@ const photosRouter = require("./src/routes/photos");
 const authRouter = require("./src/routes/auth");
 const { dbUrl } = require("./src/config");
 
-// enable cors
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.json());
-
-// use the routes
-app.use("/auth", authRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/albums", albumsRouter);
-app.use("/api/photos", photosRouter);
-app.use("/", (req, res) => {
-  res.send("Welcome to Galleria API");
-});
-
 // port
 const PORT = process.env.PORT || 5000;
 
@@ -39,6 +25,18 @@ const dbConnection = async () => {
     console.log(error);
   }
 };
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.json());
+
+// use the routes
+app.use("/auth", authRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/albums", albumsRouter);
+app.use("/api/photos", photosRouter);
+app.use("/", (req, res) => {
+  res.send("Welcome to Galleria API");
+});
 
 // listen on port
 app.listen(PORT, () => {
